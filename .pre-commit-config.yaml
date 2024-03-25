@@ -1,0 +1,42 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+  - repo: local # In order that we can reuse our defined local env, not one managed by pre-commit
+    hooks:
+      - id: black
+        name: black
+        entry: black
+        language: system
+        types: ["python"]
+        args:
+          - "--check"
+
+      - id: pylint
+        name: pylint
+        entry: pylint
+        language: system
+        types: ["python"]
+        args:
+          - "--rcfile"
+          - "pyproject.toml"
+
+      - id: isort
+        name: isort
+        entry: isort
+        language: system
+        types: ["python"]
+
+      - id: mypy
+        name: mypy
+        entry: mypy
+        language: system
+        "types_or": [python, pyi]
+        require_serial: true
+        # We don't pass the filenames in order that we can have consistent behaviour in mypy.
+        # The trade-off is that running mypy for the first time is rather slow.
+        # After that, the .mypy_cache should cover most of the codebase.
+        pass_filenames: false
+        args:
+          - "--strict"
+          - "-p"
+          - "take_home_test_starter"
