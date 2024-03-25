@@ -9,9 +9,9 @@ import rasterio.mask
 def main() -> None:
     """
     This script performs the following tasks:
-    1. Opens a Shapefile via Fiona (GDAL)
+    1. Opens a Shapefile (osgeo.open).
     2. Downloads related GeoTIFF Files (Boto3 or direct download).
-    3. Merge related GeoTIFF files (GDAL Merge).
+    3. Merge related GeoTIFF files (rasterio.merge).
     4. Uses Rasterio to create a mask with only the area of interest.
       (https://rasterio.readthedocs.io/en/stable/topics/masking-by-shapefile.html)
     """
